@@ -14,7 +14,7 @@ const encode = 'utf-8';
 
 const batman = './articles/batman-ipsum.md';
 const corporate = './articles/corporate-ipsum.md';
-const deloren = './articles/deloren-ipsum.md';
+const deloren = './articles/delore-ipsum.md';
 const lorem = './articles/lorem-ipsum.md';
 
 
@@ -72,10 +72,9 @@ articles.get('/', (req, res) => {
     });
   })
   .catch((error) => {
-    console.log(error);
 
-    res.render('index', {
-      title: 'hallo this is awesome'
+    res.render('error', {
+      title: 'errorpage'
     });
   });
 
