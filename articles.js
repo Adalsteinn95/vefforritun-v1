@@ -11,51 +11,91 @@ const readFileAsync = util.promisify(fs.readFile);
 
 /*files*/
 const encode = 'utf-8';
+
 const batman = './articles/batman-ipsum.md';
 const corporate = './articles/corporate-ipsum.md';
 const deloren = './articles/deloren-ipsum.md';
 const lorem = './articles/lorem-ipsum.md';
 
 
-/* data*/
-let data;
+
 
 
 /*read function */
-function read(file) {
+/*
+async function read(file) {
   readFileAsync(file)
     .then((data) => {
       writedata(fm(data.toString(encode)));
-
     })
     .catch((error) => {
       console.log(error);
     });
+}*/
+
+function makeDataUsable(incoming) {
+  for (let i = 0; i < incoming.length; i++) {
+    console.log(fm(incoming[i].toString(encode)));
+    
+  }
 }
 
-function writedata(incoming){
-  //console.log(incoming);
-  data = incoming;
-  console.log(data);
-}
 
+async function readData() {
+  let a;
+  let b;
+  let c;
+  let d;
 
-function readdata() {
-  read(batman);
-  read(corporate);
-  read(deloren);
-  read(lorem);
+  try {
+    a = await readFileAsync(batman);
+    b = await readFileAsync(corporate);
+    c = await readFileAsync(deloren);
+    d = await readFileAsync(lorem);
+  } catch (error) {
+    console.log(error);
+  }
+  return [a, b, c, d];
 
 };
 
-readdata();
+
 
 articles.get('/', (req, res) => {
 
+  readData()
+  .then((data) => {
+    makeDataUsable(data);
 
-  res.render('index', {
-    title: 'hallo this is awesome'
+    res.render('index', {
+      title: 'hallo this is awesome'
+    });
+  })
+  .catch((error) => {
+    console.log(error);
+
+    res.render('index', {
+      title: 'hallo this is awesome'
+    });
   });
+
+
+
 });
 
+
+
 module.exports = articles;
+
+/*
+async function main() {
+  let data = '';
+  try {
+    data = await readFileAsync('data.txt');
+  } catch (e) {
+    console.error('error', e);
+  }
+  console.log(data.toString('utf8'));
+}
+
+main().catch(err => { console.error(err); });*/
