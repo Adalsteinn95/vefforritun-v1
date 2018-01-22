@@ -14,7 +14,7 @@ const encode = 'utf-8';
 
 const batman = './articles/batman-ipsum.md';
 const corporate = './articles/corporate-ipsum.md';
-const deloren = './articles/delore-ipsum.md';
+const deloren = './articles/deloren-ipsum.md';
 const lorem = './articles/lorem-ipsum.md';
 
 
