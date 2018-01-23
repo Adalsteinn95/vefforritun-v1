@@ -18,7 +18,9 @@ const deloren = './articles/deloren-ipsum.md';
 const lorem = './articles/lorem-ipsum.md';
 
 
+/*store the useful data */ 
 
+let useful_data = [];
 
 
 /*read function */
@@ -34,10 +36,12 @@ async function read(file) {
 }*/
 
 function makeDataUsable(incoming) {
+
+
   for (let i = 0; i < incoming.length; i++) {
-    console.log(fm(incoming[i].toString(encode)));
-    
+    useful_data[i] = fm(incoming[i].toString(encode));
   }
+
 }
 
 
@@ -63,12 +67,15 @@ async function readData() {
 
 articles.get('/', (req, res) => {
 
+
   readData()
   .then((data) => {
     makeDataUsable(data);
-
+    
     res.render('index', {
-      title: 'hallo this is awesome'
+      title: 'hallo this is awesome',
+      data: useful_data,
+      
     });
   })
   .catch((error) => {
@@ -77,7 +84,6 @@ articles.get('/', (req, res) => {
       title: 'errorpage'
     });
   });
-
 
 
 });

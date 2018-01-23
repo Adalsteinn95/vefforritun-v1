@@ -1,6 +1,34 @@
 <%- include('header') -%>
 
-<p>Halló heimur!</p>
-<p><a href="/about">Lestu um okkur.</a></p>
+  <section class="header" >
 
-<%- include('footer') -%>
+      <div>
+        <h1>Greinarsafnid</h1>
+      </div>
+
+
+  </section>
+
+  <section class="articles">
+    <div class="articles__container">
+      <% data.forEach(function(data){ %>
+        <div class="articles__items">
+          <div class="items__img">
+            <img src=<%-data.attributes.image%> alt="">
+          </div>
+          <h1>
+            <%- data.attributes.title %>
+          </h1>
+          <p>
+            <%- data.attributes.date %>
+          </p>
+        </div>
+
+        <% })%>
+    </div>
+
+  </section>
+
+
+
+  <%- include('footer') -%>

@@ -9,6 +9,7 @@ const port = 3000;
 
 /*views*/
 app.set('views', path.join(__dirname, 'views'));
+app.use(express.static(__dirname + '/public'));
 app.set('view engine', 'ejs');
 
 app.listen(port, hostname, () => {
