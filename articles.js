@@ -75,12 +75,13 @@ articles.get('/', (req, res) => {
 
   readData()
   .then((data) => {
-    console.log(data)
+
     
     res.render('index', {
       title: 'Greinar',
       info: 'Greinasafnið',
       data: data,
+      date: "hello",
       
     });
   })
@@ -92,6 +93,17 @@ articles.get('/', (req, res) => {
     });
   });
 
+
+});
+
+
+/*routes*/
+articles.get('/*', (req, res) =>{
+
+  res.render('error', {
+    title: 'errorpage',
+    info: 'Fannst ekki',
+  });
 
 });
 

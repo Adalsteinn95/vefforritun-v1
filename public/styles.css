@@ -27,7 +27,7 @@ html {
   min-width: 300px;
   min-height: 500px;
   max-height: 800px;
-  background-position: 50% 50%;
+
   background: transparent url('header.jpg') no-repeat;
   background-size: cover;
 }
@@ -77,6 +77,7 @@ html {
 
 .items__img {
   background-color: grey;
+  height: 70%;
 }
 
 .items__img img{
