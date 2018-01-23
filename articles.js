@@ -12,13 +12,8 @@ const readFileAsync = util.promisify(fs.readFile);
 /*files*/
 const encode = 'utf-8';
 
-const batman = './articles/batman-ipsum.md';
-const corporate = './articles/corporate-ipsum.md';
-const deloren = './articles/deloren-ipsum.md';
-const lorem = './articles/lorem-ipsum.md';
 
-
-/*store the useful data */ 
+/*store the useful data */
 
 
 
@@ -34,8 +29,21 @@ async function read(file) {
     });
 }*/
 
-async function makeDataUsable(incoming) {
+async function readDirectory() {
+  let files = [];
+  fs.readdir(__dirname + '/articles', function (err, items) {
+    
+    for (var i = 0; i < items.length; i++) {
+      files[i] = items[i];
+    }
+    
+  });
 
+  return files;
+}
+
+
+async function makeDataUsable(incoming) {
 
   let useful_data = [];
 
@@ -50,69 +58,95 @@ async function makeDataUsable(incoming) {
 
   }
 
-  
-
   return useful_data;
 }
 
 
-async function readData() {
+async function readData(list) {
+
   let a;
   let b;
   let c;
   let d;
 
+
   try {
+
     a = await readFileAsync(batman);
     b = await readFileAsync(corporate);
     c = await readFileAsync(deloren);
     d = await readFileAsync(lorem);
+
+
+
+
   } catch (error) {
     console.log(error);
   }
 
+  const test = readDirectory();
+  console.log(test);
 
-  const final = await makeDataUsable([a, b, c ,d])
-  
+  const final = await makeDataUsable([a, b, c, d])
+
   return final;
 
 };
 
+readDirectory()
+    .then((data) => {
+      console.log(data)
+    })
+    .catch((error) => {
 
+    });
 
 articles.get('/', (req, res) => {
 
+  
 
-  readData()
-  .then((data) => {
+  /*readData([batman, corporate, deloren, lorem])
+    .then((data) => {
+      res.render('index', {
+        title: 'Greinar',
+        info: 'Greinasafnið',
+        data: data,
+      });
+    })
+    .catch((error) => {
+      res.render('error', {
+        title: 'errorpage',
+        info: 'Villa kom upp',
+      });
+    });*/
 
-    storeIt(data);
-
-    res.render('index', {
-      title: 'Greinar',
-      info: 'Greinasafnið',
-      data: data,
-    });
-  })
-  .catch((error) => {
-    res.render('error', {
-      title: 'errorpage',
-      info: 'Villa kom upp',
-    });
-  });
 
 });
 
 
 /*routes*/
-articles.get('/:data', (req, res) =>{
+articles.get('/:data', (req, res) => {
 
-  console.log(req.params.data);
+  const dest = req.params.data;
 
-  for (let i = 0; i < array.length; i++) {
-    const element = array[i];
-    
-  }
+  console.log(dest);
+
+
+  readData()
+    .then((data) => {
+      res.render('index', {
+        title: 'Greinar',
+        info: dest,
+        data: data,
+      });
+
+    })
+    .catch((error) => {
+      res.render('error', {
+        title: 'errorpage',
+        info: 'Villa kom upp',
+      });
+    });
 
 });
 
