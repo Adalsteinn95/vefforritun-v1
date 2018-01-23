@@ -107,10 +107,11 @@ articles.get('/:data', (req, res) => {
       .then((data) => {
         makeDataUsable(data)
           .then((data) => {
-            res.render('index', {
+            console.log(marked(data[0].body));
+            res.render('article', {
               title: 'greinar',
               info: 'Greinasafnid',
-              data: data,
+              article: marked(data[0].body),
             });
           })
           .catch((error) => {});
