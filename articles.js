@@ -62,6 +62,7 @@ async function readData() {
     console.log(error);
   }
 
+
   const final = await makeDataUsable([a, b, c ,d])
   
   return final;
@@ -76,12 +77,13 @@ articles.get('/', (req, res) => {
   readData()
   .then((data) => {
 
+    var date = data[0].attributes.date.split(' ');
     
     res.render('index', {
       title: 'Greinar',
       info: 'Greinasafnið',
       data: data,
-      date: "hello",
+      date: date[0] + ' ' + date[1] + ' ' + date[2] + ' ' + date[3],
       
     });
   })
