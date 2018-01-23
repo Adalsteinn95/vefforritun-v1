@@ -85,6 +85,9 @@ articles.get('/', (req, res) => {
 
   readData()
   .then((data) => {
+
+    storeIt(data);
+
     res.render('index', {
       title: 'Greinar',
       info: 'Greinasafnið',
@@ -98,17 +101,18 @@ articles.get('/', (req, res) => {
     });
   });
 
-
 });
 
 
 /*routes*/
-articles.get('/*', (req, res) =>{
+articles.get('/:data', (req, res) =>{
 
-  res.render('error', {
-    title: 'errorpage',
-    info: 'Fannst ekki',
-  });
+  console.log(req.params.data);
+
+  for (let i = 0; i < array.length; i++) {
+    const element = array[i];
+    
+  }
 
 });
 

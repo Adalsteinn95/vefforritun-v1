@@ -80,6 +80,8 @@ html {
 .items__img {
   background-color: grey;
   max-height: 400px;
+
+  border: 1px solid black;
 }
 
 
@@ -88,6 +90,15 @@ html {
   .articles__container {
     flex-flow: column;
     align-items: center;
+  }
+}
+
+@media (max-width: 900px) { 
+
+  .items__img {
+    background-color: grey;
+    min-height: 300px;
+    border: 1px solid black;
   }
 }
 
