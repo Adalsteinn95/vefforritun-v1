@@ -35,7 +35,7 @@ async function read(file) {
     });
 }*/
 
-function makeDataUsable(incoming) {
+async function makeDataUsable(incoming) {
 
 
   for (let i = 0; i < incoming.length; i++) {
@@ -70,10 +70,10 @@ articles.get('/', (req, res) => {
 
   readData()
   .then((data) => {
-    makeDataUsable(data);
+    makeDataUsable(data)
     
     res.render('index', {
-      title: 'hallo this is awesome',
+      title: 'Greinar',
       data: useful_data,
       
     });

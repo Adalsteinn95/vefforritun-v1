@@ -64,10 +64,16 @@ html {
   flex-flow: wrap;
 }
 
+
 .articles__items {
   width: 50%;
 
 }
+
+.articles__items > h2 {
+  font-size: 2em;
+}
+
 
 .items__img {
   background-color: grey;
