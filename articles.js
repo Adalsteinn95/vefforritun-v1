@@ -32,7 +32,7 @@ async function read(file) {
 
 
 async function readDirectory() {
-  
+
 }
 
 async function makeDataUsable(incoming) {
@@ -53,54 +53,44 @@ async function makeDataUsable(incoming) {
 
 async function readData(files) {
 
-  let a;
-  let b;
-  let c;
-  let d;
-
-
-  console.log(files);
+  data = [];
 
   try {
     for (let i = 0; i < files.length; i++) {
-      const element = array[i];
-      
-    }/*
-    a = await readFileAsync('./articles/'+files[0]);
-    b = await readFileAsync('./articles/'+files[1]);
-    c = await readFileAsync('./articles/'+files[2]);
-    d = await readFileAsync('./articles/'+files[3]);*/
+      data[i] = await readFileAsync('./articles/' + files[i]);
 
+    }
   } catch (error) {
     console.log(error);
   }
 
 
-  const final = await makeDataUsable([a, b, c, d])
-
-  return final;
+  return data;
 
 };
 
 
 articles.get('/', (req, res) => {
 
-  fs.readdir(__dirname + "/articles", (err, files) =>{
+  fs.readdir(__dirname + "/articles", (err, files) => {
     readData(files)
-    .then((data) => {
-      res.render('index', {
-        title: 'Greinar',
-        info: 'Greinasafnið',
-        data: data,
+      .then((data) => {
+        makeDataUsable(data)
+          .then((data) => {
+            res.render('index', {
+              title: 'greinar',
+              info: 'Greinasafnid',
+              data: data,
+            });
+          })
+          .catch((error) => {});
+      })
+      .catch((error) => {
+        res.render('error', {
+          title: 'errorpage',
+          info: 'Villa kom upp',
+        });
       });
-    })
-    .catch((error) => {
-      res.render('error', {
-        title: 'errorpage',
-        info: 'Villa kom upp',
-      });
-    });
-    
   });
 
 
@@ -112,21 +102,27 @@ articles.get('/:data', (req, res) => {
 
   const dest = req.params.data;
 
-  readData()
-    .then((data) => {
-      res.render('index', {
-        title: 'Greinar',
-        info: dest,
-        data: data,
+  fs.readdir(__dirname + "/articles", (err, files) => {
+    readData(files)
+      .then((data) => {
+        makeDataUsable(data)
+          .then((data) => {
+            res.render('index', {
+              title: 'greinar',
+              info: 'Greinasafnid',
+              data: data,
+            });
+          })
+          .catch((error) => {});
+      })
+      .catch((error) => {
+        res.render('error', {
+          title: 'errorpage',
+          info: 'Villa kom upp',
+        });
       });
+  });
 
-    })
-    .catch((error) => {
-      res.render('error', {
-        title: 'errorpage',
-        info: 'Villa kom upp',
-      });
-    });
 
 });
 
