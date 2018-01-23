@@ -41,7 +41,16 @@ async function makeDataUsable(incoming) {
 
   for (let i = 0; i < incoming.length; i++) {
     useful_data[i] = fm(incoming[i].toString(encode));
+
+    var date = useful_data[i].attributes.date.split(' ');
+
+    useful_data[i].attributes.date = date[0] + ' ' + date[1] + ' ' + date[2] + ' ' + date[3];
+
+
+
   }
+
+  
 
   return useful_data;
 }
@@ -76,19 +85,13 @@ articles.get('/', (req, res) => {
 
   readData()
   .then((data) => {
-
-    var date = data[0].attributes.date.split(' ');
-    
     res.render('index', {
       title: 'Greinar',
       info: 'Greinasafnið',
       data: data,
-      date: date[0] + ' ' + date[1] + ' ' + date[2] + ' ' + date[3],
-      
     });
   })
   .catch((error) => {
-
     res.render('error', {
       title: 'errorpage',
       info: 'Villa kom upp',
