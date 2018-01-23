@@ -91,3 +91,22 @@ html {
     align-items: center;
   }
 }
+
+/**
+  *
+  *
+  * ERRROR
+  *
+  *
+  **/
+
+.error__container {
+  margin-top: 20px;
+  text-align: center;
+}
+
+.errorMsg {
+
+  font-size: 2em;
+  font-family: 'Roboto', sans-serif;
+}

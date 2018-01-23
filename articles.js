@@ -20,7 +20,6 @@ const lorem = './articles/lorem-ipsum.md';
 
 /*store the useful data */ 
 
-let useful_data = [];
 
 
 /*read function */
@@ -38,10 +37,13 @@ async function read(file) {
 async function makeDataUsable(incoming) {
 
 
+  let useful_data = [];
+
   for (let i = 0; i < incoming.length; i++) {
     useful_data[i] = fm(incoming[i].toString(encode));
   }
 
+  return useful_data;
 }
 
 
@@ -59,7 +61,10 @@ async function readData() {
   } catch (error) {
     console.log(error);
   }
-  return [a, b, c, d];
+
+  const final = await makeDataUsable([a, b, c ,d])
+  
+  return final;
 
 };
 
@@ -70,18 +75,20 @@ articles.get('/', (req, res) => {
 
   readData()
   .then((data) => {
-    makeDataUsable(data)
+    console.log(data)
     
     res.render('index', {
       title: 'Greinar',
-      data: useful_data,
+      info: 'Greinasafnið',
+      data: data,
       
     });
   })
   .catch((error) => {
 
     res.render('error', {
-      title: 'errorpage'
+      title: 'errorpage',
+      info: 'Villa kom upp',
     });
   });
 
