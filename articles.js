@@ -5,6 +5,8 @@ const marked = require('marked');
 const fs = require('fs');
 const fm = require('front-matter');
 
+
+
 /*util to read the files*/
 const util = require('util');
 const readFileAsync = util.promisify(fs.readFile);
@@ -13,7 +15,6 @@ const readFileAsync = util.promisify(fs.readFile);
 const encode = 'utf-8';
 
 
-/*store the useful data */
 
 
 
@@ -29,19 +30,10 @@ async function read(file) {
     });
 }*/
 
+
 async function readDirectory() {
-  let files = [];
-  fs.readdir(__dirname + '/articles', function (err, items) {
-    
-    for (var i = 0; i < items.length; i++) {
-      files[i] = items[i];
-    }
-    
-  });
-
-  return files;
+  
 }
-
 
 async function makeDataUsable(incoming) {
 
@@ -54,15 +46,12 @@ async function makeDataUsable(incoming) {
 
     useful_data[i].attributes.date = date[0] + ' ' + date[1] + ' ' + date[2] + ' ' + date[3];
 
-
-
   }
-
   return useful_data;
 }
 
 
-async function readData(list) {
+async function readData(files) {
 
   let a;
   let b;
@@ -70,22 +59,22 @@ async function readData(list) {
   let d;
 
 
+  console.log(files);
+
   try {
-
-    a = await readFileAsync(batman);
-    b = await readFileAsync(corporate);
-    c = await readFileAsync(deloren);
-    d = await readFileAsync(lorem);
-
-
-
+    for (let i = 0; i < files.length; i++) {
+      const element = array[i];
+      
+    }/*
+    a = await readFileAsync('./articles/'+files[0]);
+    b = await readFileAsync('./articles/'+files[1]);
+    c = await readFileAsync('./articles/'+files[2]);
+    d = await readFileAsync('./articles/'+files[3]);*/
 
   } catch (error) {
     console.log(error);
   }
 
-  const test = readDirectory();
-  console.log(test);
 
   const final = await makeDataUsable([a, b, c, d])
 
@@ -93,19 +82,11 @@ async function readData(list) {
 
 };
 
-readDirectory()
-    .then((data) => {
-      console.log(data)
-    })
-    .catch((error) => {
-
-    });
 
 articles.get('/', (req, res) => {
 
-  
-
-  /*readData([batman, corporate, deloren, lorem])
+  fs.readdir(__dirname + "/articles", (err, files) =>{
+    readData(files)
     .then((data) => {
       res.render('index', {
         title: 'Greinar',
@@ -118,7 +99,9 @@ articles.get('/', (req, res) => {
         title: 'errorpage',
         info: 'Villa kom upp',
       });
-    });*/
+    });
+    
+  });
 
 
 });
@@ -128,9 +111,6 @@ articles.get('/', (req, res) => {
 articles.get('/:data', (req, res) => {
 
   const dest = req.params.data;
-
-  console.log(dest);
-
 
   readData()
     .then((data) => {
