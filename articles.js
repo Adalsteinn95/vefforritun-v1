@@ -31,9 +31,6 @@ async function read(file) {
 }*/
 
 
-async function readDirectory() {
-
-}
 
 async function makeDataUsable(incoming) {
 
@@ -43,7 +40,7 @@ async function makeDataUsable(incoming) {
     useful_data[i] = fm(incoming[i].toString(encode));
 
     var date = useful_data[i].attributes.date.split(' ');
-
+    
     useful_data[i].attributes.date = date[0] + ' ' + date[1] + ' ' + date[2] + ' ' + date[3];
 
   }
@@ -114,7 +111,12 @@ articles.get('/:data', (req, res) => {
               article: marked(data[0].body),
             });
           })
-          .catch((error) => {});
+          .catch((error) => {
+            res.render('error', {
+              title: 'errorpage',
+              info: 'Villa kom upp',
+            });
+          });
       })
       .catch((error) => {
         res.render('error', {
