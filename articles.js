@@ -40,10 +40,12 @@ async function makeDataUsable(incoming) {
     useful_data[i] = fm(incoming[i].toString(encode));
 
     var date = useful_data[i].attributes.date.split(' ');
-    
     useful_data[i].attributes.date = date[0] + ' ' + date[1] + ' ' + date[2] + ' ' + date[3];
 
+
   }
+
+
   return useful_data;
 }
 
@@ -54,7 +56,12 @@ async function readData(files) {
 
   try {
     for (let i = 0; i < files.length; i++) {
-      data[i] = await readFileAsync('./articles/' + files[i]);
+      if (files[i] === 'img') {
+
+      } else {
+        data.push(await readFileAsync('./articles/' + files[i]));
+      }
+
 
     }
   } catch (error) {
@@ -70,6 +77,7 @@ async function readData(files) {
 articles.get('/', (req, res) => {
 
   fs.readdir(__dirname + "/articles", (err, files) => {
+
     readData(files)
       .then((data) => {
         makeDataUsable(data)
@@ -80,14 +88,21 @@ articles.get('/', (req, res) => {
               data: data,
             });
           })
-          .catch((error) => {});
+          .catch((error) => {
+            res.render('error', {
+              title: 'errorpage',
+              info: 'Villa 2 kom upp',
+            });
+          });
       })
       .catch((error) => {
         res.render('error', {
           title: 'errorpage',
-          info: 'Villa kom upp',
+          info: 'Villa 1 kom upp',
         });
       });
+
+
   });
 
 
@@ -132,16 +147,3 @@ articles.get('/:data', (req, res) => {
 
 
 module.exports = articles;
-
-/*
-async function main() {
-  let data = '';
-  try {
-    data = await readFileAsync('data.txt');
-  } catch (e) {
-    console.error('error', e);
-  }
-  console.log(data.toString('utf8'));
-}
-
-main().catch(err => { console.error(err); });*/

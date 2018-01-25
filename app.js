@@ -8,10 +8,12 @@ const hostname = '127.0.0.1';
 const port = 3000;
 
 /*views*/
+app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
 app.use(express.static(__dirname + '/public'));
-//app.use(express.static(__dirname + '/articles'));
-app.set('view engine', 'ejs');
+app.use(express.static(__dirname + '/articles'));
+
+
 
 
 

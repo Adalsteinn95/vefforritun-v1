@@ -6,15 +6,15 @@
       <% data.forEach(function(data){ %>
         <div class="articles__items">
           <div class="items__img">
-            <a href=<%-data.attributes.slug%>>
-              <img src=<%-data.attributes.imge%> alt="">
+            <a href=<%=data.attributes.slug%>>
+              <img src=<%=data.attributes.image %>>
             </a>
           </div>
           <h2>
-            <%- data.attributes.title %>
+            <%= data.attributes.title %>
           </h2>
           <p>
-            <%- data.attributes.date %>
+            <%= data.attributes.date %>
           </p>
         </div>
 
