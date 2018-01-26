@@ -118,7 +118,6 @@ articles.get('/:data', (req, res) => {
           .then((data) => {
 
             const article = filter_array(data,dest);
-            console.log(article);
 
             res.render('article', {
               title: 'greinar',

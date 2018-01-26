@@ -1,6 +1,7 @@
 * {
   margin: 0;
   padding: 0;
+  color: #333;
 }
 
 html {
@@ -28,9 +29,9 @@ html {
   min-width: 300px;
   min-height: 500px;
   max-height: 1200px;
-  background: transparent url('header.jpg') fixed no-repeat center;
+  background: transparent url('header.jpg') no-repeat center;
   background-position-y: 50%;
-  background-size: 100%;
+  background-size: cover;
   
 }
 
@@ -133,9 +134,40 @@ html {
 /**
   *
   *
-  * GLOBAL MULTI SELECTORS
+  * ARTICLE
   *
   *
   *
   **/
 
+.article__container {
+  margin: 3rem;
+}
+
+.article__container h1{
+  font-family: 'Roboto', sans-serif;
+  font-size: 3rem;
+}
+
+.article__container h2 {
+  font-family: 'Roboto', sans-serif;
+  font-size: 2rem;
+}
+
+.article__container p {
+  font-size: 2rem;
+}
+
+.article__container * {
+  margin-bottom: 2rem;
+  margin-top: 2rem;
+  width: 100%;
+}
+
+.article__container img {
+  max-height: 800px;
+}
+
+.article__container blockquote {
+  max-height: 800px;
+}
