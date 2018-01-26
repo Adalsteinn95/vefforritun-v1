@@ -31,7 +31,7 @@ async function makeDataUsable(incoming) {
   useful_data.sort((a, b) => {
     return Date.parse(a.attributes.date) - Date.parse(b.attributes.date);
   });
-  
+
 
   return useful_data;
 }
@@ -92,21 +92,38 @@ articles.get('/', (req, res) => {
 
 });
 
+function filter_array(array,string) {
+  var filtered = [];
+
+  for (var i = 0; i < array.length; i++) {
+    if (array[i].attributes.slug === string) {
+      filtered.push(array[i]);
+    }
+  }
+
+  return filtered;
+}
+
 
 /*routes*/
 articles.get('/:data', (req, res) => {
 
   const dest = req.params.data;
 
+
   fs.readdir(__dirname + "/articles", (err, files) => {
     readData(files)
       .then((data) => {
         makeDataUsable(data)
           .then((data) => {
+
+            const article = filter_array(data,dest);
+            console.log(article);
+
             res.render('article', {
               title: 'greinar',
-              info: 'Greinasafnid',
-              article: marked(data[1].body),
+              info: article[0].attributes.title,
+              article: marked(article[0].body),
             });
           })
           .catch((error) => {

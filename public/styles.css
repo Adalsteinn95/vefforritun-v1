@@ -27,10 +27,11 @@ html {
   /*width: 100%;*/
   min-width: 300px;
   min-height: 500px;
-  max-height: 1000px;
-  background: transparent url('header.jpg') fixed no-repeat;
-
-  background-size: cover;
+  max-height: 1200px;
+  background: transparent url('header.jpg') fixed no-repeat center;
+  background-position-y: 50%;
+  background-size: 100%;
+  
 }
 
 .header > div {
@@ -84,6 +85,7 @@ html {
   max-height: 400px;
   height: 85%;
   border: 1px solid black;
+  min-width: 250px;
 }
 
 .items__img img {
