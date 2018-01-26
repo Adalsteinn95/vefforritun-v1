@@ -10,8 +10,9 @@ const port = 3000;
 /*views*/
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
-app.use(express.static(__dirname + '/public'));
-app.use(express.static(__dirname + '/articles'));
+app.use(express.static(path.join(__dirname ,'public')));
+
+app.use('/img', express.static(path.join(__dirname ,'articles/img')));
 
 
 

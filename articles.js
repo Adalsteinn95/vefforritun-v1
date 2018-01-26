@@ -16,34 +16,24 @@ const encode = 'utf-8';
 
 
 
-
-
-/*read function */
-/*
-async function read(file) {
-  readFileAsync(file)
-    .then((data) => {
-      writedata(fm(data.toString(encode)));
-    })
-    .catch((error) => {
-      console.log(error);
-    });
-}*/
-
-
-
 async function makeDataUsable(incoming) {
 
   let useful_data = [];
+
 
   for (let i = 0; i < incoming.length; i++) {
     useful_data[i] = fm(incoming[i].toString(encode));
 
     var date = useful_data[i].attributes.date.split(' ');
     useful_data[i].attributes.date = date[0] + ' ' + date[1] + ' ' + date[2] + ' ' + date[3];
-
-
   }
+
+  useful_data.sort((a, b) => {
+    return Date.parse(a.attributes.date) - Date.parse(b.attributes.date);
+  });
+  
+
+  console.log(useful_data);
 
 
   return useful_data;
@@ -55,21 +45,20 @@ async function readData(files) {
   data = [];
 
   try {
-    for (let i = 0; i < files.length; i++) {
-      if (files[i] === 'img') {
-
-      } else {
+    for (let i in files) {
+      if (files[i] !== 'img') {
         data.push(await readFileAsync('./articles/' + files[i]));
       }
-
-
     }
   } catch (error) {
     console.log(error);
+
   }
 
-
-  return data;
+  return await Promise.all(data)
+    .then((data) => {
+      return data;
+    });
 
 };
 
@@ -101,8 +90,6 @@ articles.get('/', (req, res) => {
           info: 'Villa 1 kom upp',
         });
       });
-
-
   });
 
 
@@ -119,11 +106,10 @@ articles.get('/:data', (req, res) => {
       .then((data) => {
         makeDataUsable(data)
           .then((data) => {
-            console.log(marked(data[0].body));
             res.render('article', {
               title: 'greinar',
               info: 'Greinasafnid',
-              article: marked(data[0].body),
+              article: marked(data[1].body),
             });
           })
           .catch((error) => {
