@@ -68,6 +68,7 @@ articles.get('/', (req, res) => {
       .then((data) => {
         makeDataUsable(data)
           .then((data) => {
+            console.log(data[0].attributes.image)
             res.render('index', {
               title: 'greinar',
               info: 'Greinasafnid',

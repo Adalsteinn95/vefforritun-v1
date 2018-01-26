@@ -7,7 +7,9 @@
         <div class="articles__items">
           <div class="items__img">
             <a href=<%=data.attributes.slug%>>
-              <img src=<%=data.attributes.image %>>
+                <% if (data.attributes.image !== undefined) { %>
+                  <img src=<%=data.attributes.image %>>
+                <% } %>
             </a>
           </div>
           <h2>
