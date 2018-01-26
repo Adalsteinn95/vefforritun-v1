@@ -33,9 +33,6 @@ async function makeDataUsable(incoming) {
   });
   
 
-  console.log(useful_data);
-
-
   return useful_data;
 }
 
