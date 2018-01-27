@@ -103,6 +103,14 @@ html {
   .articles__items {
     width: 70%;
   }
+
+}
+
+@media (max-width: 950px) { 
+
+  .items__img {
+    min-height: 150px;
+  }
 }
 
 /**

@@ -1,19 +1,19 @@
 /* útfæra greina virkni */
 const express = require('express');
+
 const articles = express.Router();
 const marked = require('marked');
 const fs = require('fs');
 const fm = require('front-matter');
 
 
-
-/*util to read the files*/
+/* util to read the files */
 const util = require('util');
+
 const readFileAsync = util.promisify(fs.readFile);
 
-/*files*/
+/* files */
 const encode = 'utf-8';
-
 
 
 async function makeDataUsable(incoming) {
