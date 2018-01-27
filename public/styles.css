@@ -93,7 +93,7 @@ html {
   
 }
 
-@media (max-width: 600px) { 
+@media (max-width: 750px) { 
 
   .articles__container {
     flex-flow: column;
@@ -101,17 +101,22 @@ html {
   }
 
   .articles__items {
-    width: 70%;
+    width: 60%;
   }
-
-}
-
-@media (max-width: 950px) { 
 
   .items__img {
-    min-height: 150px;
+    min-height: 300px;
   }
+
 }
+
+@media (max-width: 600px) { 
+  .items__img {
+    min-height: 200px;
+  }
+
+}
+
 
 /**
   *

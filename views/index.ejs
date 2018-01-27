@@ -5,13 +5,13 @@
     <div class="articles__container">
       <% data.forEach(function(data){ %>
         <div class="articles__items">
-          <div class="items__img">
-            <a href=<%=data.attributes.slug%>>
-                <% if (data.attributes.image !== undefined) { %>
-                  <img alt="mynd" src=<%=data.attributes.image %> >
+          <a href=<%=data.attributes.slug%>>
+            <div class="items__img">
+              <% if (data.attributes.image !== undefined) { %>
+                <img alt="mynd" src=<%=data.attributes.image %> >
                 <% } %>
-            </a>
-          </div>
+            </div>
+          </a>
           <h2>
             <%= data.attributes.title %>
           </h2>
