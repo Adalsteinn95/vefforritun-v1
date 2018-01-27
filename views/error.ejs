@@ -1,7 +1,10 @@
 <%- include('header') -%>
 
 <div class="error__container">
-    <h2 class="errorMsg">Big error</h2>
+    <% if (errormsg.length > 0) { %>
+        <h2 class="errorMsg"><%= errormsg -%></h2>
+    <% } %>
+    <a href="./">tilbaka</a>
 </div>
 
 

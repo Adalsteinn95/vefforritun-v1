@@ -5,6 +5,7 @@ const articles = express.Router();
 const marked = require('marked');
 const fs = require('fs');
 const fm = require('front-matter');
+const path = require('path');
 
 
 /* util to read the files */
@@ -17,86 +18,81 @@ const encode = 'utf-8';
 
 
 async function makeDataUsable(incoming) {
+  const usefulData = [];
 
-  let useful_data = [];
 
-
-  for (let i = 0; i < incoming.length; i++) {
-    useful_data[i] = fm(incoming[i].toString(encode));
-
-    var date = useful_data[i].attributes.date.split(' ');
-    useful_data[i].attributes.date = date[0] + ' ' + date[1] + ' ' + date[2] + ' ' + date[3];
+  for (let i = 0; i < incoming.length; i += 1) {
+    usefulData[i] = fm(incoming[i].toString(encode));
   }
 
-  useful_data.sort((a, b) => {
-    return Date.parse(a.attributes.date) - Date.parse(b.attributes.date);
-  });
+  usefulData.sort((a, b) => Date.parse(a.attributes.date) - Date.parse(b.attributes.date));
 
 
-  return useful_data;
+  return usefulData;
 }
 
 
 async function readData(files) {
-
-  data = [];
+  const data = [];
 
   try {
-    for (let i in files) {
+    for (let i = 0; i < files.length; i += 1) {
       if (files[i] !== 'img') {
-        data.push(await readFileAsync('./articles/' + files[i]));
+        data.push(readFileAsync(`./articles/${files[i]}`));
       }
     }
   } catch (error) {
     console.log(error);
-
   }
 
-  return await Promise.all(data)
-    .then((data) => {
-      return data;
-    });
-
-};
+  const a = await Promise.all(data);
+  return a;
+}
 
 
 articles.get('/', (req, res) => {
+  fs.readdir(path.join(__dirname, '/articles'), (err, files) => {
+    console.log(err);
 
-  fs.readdir(__dirname + "/articles", (err, files) => {
-
-    readData(files)
-      .then((data) => {
-        makeDataUsable(data)
-          .then((data) => {
-            console.log(data[0].attributes.image)
-            res.render('index', {
-              title: 'greinar',
-              info: 'Greinasafnid',
-              data: data,
+    if (!err) {
+      readData(files)
+        .then((data) => {
+          makeDataUsable(data)
+            .then((usableData) => {
+              res.render('index', {
+                title: 'greinar',
+                info: 'Greinasafnid',
+                data: usableData,
+              });
+            })
+            .catch((error) => {
+              res.render('error', {
+                title: 'errorpage',
+                info: 'Efnid fannst ekki',
+              });
             });
-          })
-          .catch((error) => {
-            res.render('error', {
-              title: 'errorpage',
-              info: 'Villa 2 kom upp',
-            });
+        })
+        .catch((error) => {
+          res.render('error', {
+            title: 'errorpage',
+            info: 'Efnid fannst ekki',
+            errormsg: 'tello',
           });
-      })
-      .catch((error) => {
-        res.render('error', {
-          title: 'errorpage',
-          info: 'Villa 1 kom upp',
         });
+    } else {
+      res.render('error',{
+        title: 'error',
+        info: 'Villa kom upp',
+        errormsg: '',
       });
+    }
   });
-
-
 });
 
-function filter_array(array,string) {
-  var filtered = [];
+function filterArray(array, string) {
+  const filtered = [];
 
-  for (var i = 0; i < array.length; i++) {
+  for (let i = 0; i < array.length; i += 1) {
     if (array[i].attributes.slug === string) {
       filtered.push(array[i]);
     }
@@ -106,19 +102,17 @@ function filter_array(array,string) {
 }
 
 
-/*routes*/
+/* routes */
 articles.get('/:data', (req, res) => {
-
   const dest = req.params.data;
 
 
-  fs.readdir(__dirname + "/articles", (err, files) => {
+  fs.readdir(path.join(__dirname, '/articles'), (err, files) => {
     readData(files)
-      .then((data) => {
-        makeDataUsable(data)
+      .then((readdata) => {
+        makeDataUsable(readdata)
           .then((data) => {
-
-            const article = filter_array(data,dest);
+            const article = filterArray(data, dest);
 
             res.render('article', {
               title: 'greinar',
@@ -129,7 +123,8 @@ articles.get('/:data', (req, res) => {
           .catch((error) => {
             res.render('error', {
               title: 'errorpage',
-              info: 'Villa kom upp',
+              info: 'Fannst ekki',
+              errormsg: 'Ó nei , efnið finnst ekki',
             });
           });
       })
@@ -140,10 +135,6 @@ articles.get('/:data', (req, res) => {
         });
       });
   });
-
-
 });
-
-
 
 module.exports = articles;
