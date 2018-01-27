@@ -52,8 +52,6 @@ async function readData(files) {
 
 articles.get('/', (req, res) => {
   fs.readdir(path.join(__dirname, '/articles'), (err, files) => {
-    console.log(err);
-
     if (!err) {
       readData(files)
         .then((data) => {
