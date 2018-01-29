@@ -156,7 +156,8 @@ html {
   **/
 
 .article__container {
-  margin: 3rem;
+  max-width: 1200px;
+  margin: 3rem auto;
 }
 
 .article__container h1{
