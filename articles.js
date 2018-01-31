@@ -29,11 +29,14 @@ async function makeDataUsable(incoming) {
   usefulData.sort((a, b) => Date.parse(a.attributes.date) - Date.parse(b.attributes.date));
 
 
-  for (let i = 0; i < usefulData.length; i++) {
+  for (let i = 0; i < usefulData.length; i += 1) {
     const element = usefulData[i].attributes.date;
 
     const a = Date.parse(element);
     const b = new Date(a);
+
+
+    usefulData[i].attributes.date = `${b.getDate()}.${b.getMonth() + 1}.${b.getFullYear()}`;
   }
 
 
@@ -44,23 +47,11 @@ async function makeDataUsable(incoming) {
 async function readData(files) {
   const data = [];
 
-  try {
-    for (let i = 0; i < files.length; i += 1) {
-      if (files[i] !== 'img') {
-        data.push(readFileAsync(`./articles/${files[i]}`));
-      }
+  for (let i = 0; i < files.length; i += 1) {
+    if (files[i] !== 'img') {
+      data.push(readFileAsync(`./articles/${files[i]}`));
     }
-  } catch (error) {
-    console.log(error);
   }
-
-  /* check plz */
-  data.filter((element) => {
-    const regexp = new RegExp('.md', 'g');
-
-    return regexp.test(element);
-  });
-
 
   const a = await Promise.all(data);
   return a;
@@ -68,12 +59,7 @@ async function readData(files) {
 
 
 async function readDirectory(directory) {
-  let a;
-  try {
-    a = await readDir(directory);
-  } catch (error) {
-    console.log(error);
-  }
+  const a = await readDir(directory);
   return a;
 }
 
@@ -99,18 +85,18 @@ articles.get('/', (req, res) => {
             .then((usableData) => {
               res.render('index', {
                 title: 'greinar',
-                info: 'Greinasafnid',
+                info: 'Greinasafnið',
                 data: usableData,
               });
             })
-            .catch((error) => {
+            .catch(() => {
               res.render('error', {
                 title: 'errorpage',
                 info: 'Efnid fannst ekki',
               });
             });
         })
-        .catch((error) => {
+        .catch(() => {
           res.render('error', {
             title: 'errorpage',
             info: 'Efnid fannst ekki',
@@ -118,7 +104,7 @@ articles.get('/', (req, res) => {
           });
         });
     })
-    .catch((error) => {
+    .catch(() => {
       res.render('error', {
         title: 'error',
         info: 'Villa kom upp',
@@ -138,14 +124,13 @@ articles.get('/:data', (req, res) => {
           makeDataUsable(readdata)
             .then((data) => {
               const article = filterArray(data, dest);
-
               res.render('article', {
                 title: 'greinar',
                 info: article[0].attributes.title,
                 article: marked(article[0].body),
               });
             })
-            .catch((error) => {
+            .catch(() => {
               res.render('error', {
                 title: 'errorpage',
                 info: 'Fannst ekki',
@@ -153,14 +138,14 @@ articles.get('/:data', (req, res) => {
               });
             });
         })
-        .catch((error) => {
+        .catch(() => {
           res.render('error', {
             title: 'errorpage',
             info: 'Villa kom upp',
           });
         });
     })
-    .catch((error) => {
+    .catch(() => {
       res.render('error', {
         title: 'errorpage',
         info: 'Villa kom upp',
