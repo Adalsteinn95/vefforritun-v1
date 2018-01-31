@@ -39,7 +39,7 @@ html {
   
 }
 
-.header > div > h1 {
+.header > div > h1{
   font-size: 4rem;
   text-align: center;
   font-family: 'Roboto', sans-serif;
@@ -74,6 +74,12 @@ html {
 
 .articles__items > h2 {
   font-size: 2rem;
+  font-family: 'Roboto', sans-serif;
+}
+
+.articles__items > p{
+  font-size: 1rem;
+  font-family: 'Lora', sans-serif;
 }
 
 
@@ -132,19 +138,16 @@ html {
 }
 
 .errorMsg {
-
-  font-size: 2em;
+  font-size: 3rem;
   font-family: 'Roboto', sans-serif;
+  margin-bottom: 3rem;
+  font-weight: lighter;
 }
 
-/**
-  *
-  *
-  * ARTICLES
-  *
-  *
-  *
-  **/
+.error__link {
+  font-size: 2rem;
+  
+}
 
 /**
   *
@@ -172,12 +175,19 @@ html {
 
 .article__container p {
   font-size: 2rem;
+  font-family: 'Lora', sans-serif;
 }
 
 .article__container * {
   margin-bottom: 2rem;
   margin-top: 2rem;
   width: 100%;
+}
+
+.article__container a {
+  font-size: 2rem;
+  text-decoration: none;
+  font-weight: bold; 
 }
 
 .article__container img {
@@ -187,4 +197,11 @@ html {
 
 .article__container blockquote {
   max-height: 800px;
+}
+
+@media (max-width: 1400px) { 
+  .article__container {
+    margin: 3rem 3rem;
+  }
+
 }
