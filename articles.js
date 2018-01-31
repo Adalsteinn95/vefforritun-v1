@@ -17,6 +17,9 @@ const readDir = util.promisify(fs.readdir);
 /* files */
 const encode = 'utf-8';
 
+/* endurtekningar */
+const title = 'Greinasafnið';
+
 
 async function makeDataUsable(incoming) {
   const usefulData = [];
@@ -84,8 +87,8 @@ articles.get('/', (req, res) => {
           makeDataUsable(data)
             .then((usableData) => {
               res.render('index', {
-                title: 'greinar',
-                info: 'Greinasafnið',
+                title: `${title}`,
+                info: `${title}`,
                 data: usableData,
               });
             })
@@ -125,7 +128,7 @@ articles.get('/:data', (req, res) => {
             .then((data) => {
               const article = filterArray(data, dest);
               res.render('article', {
-                title: 'greinar',
+                title: `${title}`,
                 info: article[0].attributes.title,
                 article: marked(article[0].body),
               });
