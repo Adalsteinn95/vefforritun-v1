@@ -1,4 +1,4 @@
-/* útfæra greina virkni */
+/* packages */
 const express = require('express');
 
 const articles = express.Router();
@@ -14,11 +14,9 @@ const util = require('util');
 const readFileAsync = util.promisify(fs.readFile);
 const readDir = util.promisify(fs.readdir);
 
-/* files */
-const encode = 'utf-8';
-
 /* endurtekningar */
 const title = 'Greinasafnið';
+const encode = 'utf-8';
 
 
 async function makeDataUsable(incoming) {
@@ -114,8 +112,6 @@ articles.get('/', (req, res) => {
     });
 });
 
-
-/* routes */
 articles.get('/:data', (req, res) => {
   const dest = req.params.data;
   readDirectory(path.join(__dirname, '/articles'))
