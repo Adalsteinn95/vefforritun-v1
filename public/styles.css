@@ -201,7 +201,7 @@ html {
 }
 
 .article__container blockquote {
-  max-height: 800px;
+  font-style: italic;
 }
 
 @media (max-width: 1400px) { 

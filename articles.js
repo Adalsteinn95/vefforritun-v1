@@ -156,5 +156,8 @@ articles.get('/:data', (req, res) => {
       });
     });
 });
+articles.get('*', (req, res) => {
+  res.redirect('/');
+});
 
 module.exports = articles;
