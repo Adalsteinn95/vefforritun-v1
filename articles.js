@@ -48,8 +48,9 @@ async function makeDataUsable(incoming) {
 async function readData(files) {
   const data = [];
 
+  const regularExpression = new RegExp('[a-zA-Z]+.md$');
   for (let i = 0; i < files.length; i += 1) {
-    if (files[i] !== 'img') {
+    if (regularExpression.test(files[i])) {
       data.push(readFileAsync(`./articles/${files[i]}`));
     }
   }
