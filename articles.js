@@ -29,7 +29,7 @@ async function makeDataUsable(incoming) {
     usefulData[i] = fm(incoming[i].toString(encode));
   }
 
-  usefulData.sort((a, b) => Date.parse(a.attributes.date) - Date.parse(b.attributes.date));
+  usefulData.sort((a, b) =>  Date.parse(b.attributes.date) - Date.parse(a.attributes.date));
 
 
   for (let i = 0; i < usefulData.length; i += 1) {
@@ -80,6 +80,7 @@ function filterArray(array, string) {
 
 
 articles.get('/', (req, res) => {
+
   readDirectory(path.join(__dirname, '/articles'))
     .then((item) => {
       readData(item)

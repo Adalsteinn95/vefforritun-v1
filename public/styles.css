@@ -94,6 +94,7 @@ html {
   width: 100%;
   height: 100%;
   list-style-type: none;
+  vertical-align:top;
   
 }
 
@@ -105,11 +106,11 @@ html {
   }
 
   .articles__items {
-    width: 60%;
+    width: 70%;
   }
 
   .items__img {
-    min-height: 300px;
+    min-height: 250px;
   }
 
 }
@@ -119,6 +120,12 @@ html {
     min-height: 200px;
   }
 
+}
+
+@media (max-width: 500px) {
+  .items__img {
+    min-height: 150px;
+  }
 }
 
 
