@@ -156,7 +156,11 @@ articles.get('/:data', (req, res) => {
     });
 });
 articles.get('*', (req, res) => {
-  res.redirect('/');
+  res.render('error', {
+    title: 'errorpage',
+    info: 'Fannst ekki',
+    errormsg: 'Ó nei , efnið finnst ekki',
+  });
 });
 
 module.exports = articles;
