@@ -29,8 +29,7 @@ async function makeDataUsable(incoming) {
     usefulData[i] = fm(incoming[i].toString(encode));
   }
 
-  usefulData.sort((a, b) =>  Date.parse(b.attributes.date) - Date.parse(a.attributes.date));
-
+  usefulData.sort((a, b) => Date.parse(b.attributes.date) - Date.parse(a.attributes.date));
 
   for (let i = 0; i < usefulData.length; i += 1) {
     const element = usefulData[i].attributes.date;
@@ -79,7 +78,6 @@ function filterArray(array, string) {
 
 
 articles.get('/', (req, res) => {
-
   readDirectory(path.join(__dirname, '/articles'))
     .then((item) => {
       readData(item)
