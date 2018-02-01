@@ -1,3 +1,11 @@
+/**
+  *
+  *
+  * RESET VALUES
+  *
+  *
+  */
+
 * {
   margin: 0;
   padding: 0;
@@ -38,10 +46,17 @@ html {
 }
 
 .header > div > h1{
-  font-size: 4rem;
+  font-size: 5rem;
   text-align: center;
   font-family: 'Roboto', sans-serif;
   color: #eee;
+  transition: 3s;
+}
+
+@media (max-width: 550px) {
+  .header > div > h1{
+    font-size: 3rem;
+  }
 }
 
 
@@ -143,15 +158,16 @@ html {
 }
 
 .errorMsg {
-  font-size: 3rem;
-  font-family: 'Roboto', sans-serif;
+  font-size: 4rem;
+  font-family: 'Loro', sans-serif;
   margin-bottom: 3rem;
   font-weight: lighter;
 }
 
 .error__link {
-  font-size: 2rem;
-  
+  font-size: 1.5rem;
+  text-decoration: none;
+  font-weight: bold;
 }
 
 /**

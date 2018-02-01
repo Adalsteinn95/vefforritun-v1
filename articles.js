@@ -37,8 +37,6 @@ async function makeDataUsable(incoming) {
 
     const a = Date.parse(element);
     const b = new Date(a);
-
-
     usefulData[i].attributes.date = `${b.getDate()}.${b.getMonth() + 1}.${b.getFullYear()}`;
   }
 
@@ -103,8 +101,8 @@ articles.get('/', (req, res) => {
         .catch(() => {
           res.render('error', {
             title: 'errorpage',
-            info: 'Efnid fannst ekki',
-            errormsg: 'tello',
+            info: 'Villa kom up',
+            errormsg: '',
           });
         });
     })
@@ -146,6 +144,7 @@ articles.get('/:data', (req, res) => {
           res.render('error', {
             title: 'errorpage',
             info: 'Villa kom upp',
+            errormsg: '',
           });
         });
     })
@@ -153,6 +152,7 @@ articles.get('/:data', (req, res) => {
       res.render('error', {
         title: 'errorpage',
         info: 'Villa kom upp',
+        errormsg: '',
       });
     });
 });
