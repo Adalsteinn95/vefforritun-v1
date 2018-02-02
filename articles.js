@@ -144,6 +144,7 @@ articles.get('/:data', (req, res) => {
       errorHandler(req, res);
     });
 });
+
 articles.get('*', (req, res) => {
   notFoundHandler(req, res);
 });
