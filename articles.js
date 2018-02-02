@@ -91,7 +91,8 @@ articles.get('/', (req, res) => {
             .catch(() => {
               res.render('error', {
                 title: 'errorpage',
-                info: 'Efnid fannst ekki',
+                info: 'Fannst ekki',
+                errormsg: 'Ó nei , efnið finnst ekki',
               });
             });
         })
