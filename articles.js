@@ -74,6 +74,22 @@ function filterArray(array, string) {
   return filtered;
 }
 
+function notFoundHandler(req, res) {
+  res.render('error', {
+    title: 'errorpage',
+    info: 'Fannst ekki',
+    errormsg: 'Ó nei , efnið finnst ekki',
+  });
+}
+
+function errorHandler(req, res) {
+  res.render('error', {
+    title: 'errorpage',
+    info: 'Villa kom upp',
+    errormsg: '',
+  });
+}
+
 
 articles.get('/', (req, res) => {
   readDirectory(path.join(__dirname, '/articles'))
@@ -89,27 +105,15 @@ articles.get('/', (req, res) => {
               });
             })
             .catch(() => {
-              res.render('error', {
-                title: 'errorpage',
-                info: 'Fannst ekki',
-                errormsg: 'Ó nei , efnið finnst ekki',
-              });
+              notFoundHandler(req, res);
             });
         })
         .catch(() => {
-          res.render('error', {
-            title: 'errorpage',
-            info: 'Villa kom up',
-            errormsg: '',
-          });
+          errorHandler(req, res);
         });
     })
     .catch(() => {
-      res.render('error', {
-        title: 'error',
-        info: 'Villa kom upp',
-        errormsg: '',
-      });
+      errorHandler(req, res);
     });
 });
 
@@ -129,35 +133,20 @@ articles.get('/:data', (req, res) => {
               });
             })
             .catch(() => {
-              res.render('error', {
-                title: 'errorpage',
-                info: 'Fannst ekki',
-                errormsg: 'Ó nei , efnið finnst ekki',
-              });
+              notFoundHandler(req, res);
             });
         })
         .catch(() => {
-          res.render('error', {
-            title: 'errorpage',
-            info: 'Villa kom upp',
-            errormsg: '',
-          });
+          errorHandler(req, res);
         });
     })
     .catch(() => {
-      res.render('error', {
-        title: 'errorpage',
-        info: 'Villa kom upp',
-        errormsg: '',
-      });
+      errorHandler(req, res);
     });
 });
 articles.get('*', (req, res) => {
-  res.render('error', {
-    title: 'errorpage',
-    info: 'Fannst ekki',
-    errormsg: 'Ó nei , efnið finnst ekki',
-  });
+  notFoundHandler(req, res);
 });
+
 
 module.exports = articles;
